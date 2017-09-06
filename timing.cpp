@@ -154,7 +154,7 @@ int main(void){
 
 		// check if pump has been turned on for more than 70 minutes
 		std::chrono::duration<float> seconds_pump_on = last_pump_off_time - std::chrono::system_clock::now();
-		if(seconds_pump_on > 4200)
+		if(seconds_pump_on.count() > 4200)
 			filling = false;
 
 		// turn pump on or off with relay pin

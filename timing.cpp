@@ -45,6 +45,8 @@ void delay_nanos(int nano_delay){
 
 float take_reading(void){
 
+	std::cout << "Taking reading...\n";
+
 	auto trig_start = std::chrono::system_clock::now();
 
 	digitalWrite(TRIGPIN, HIGH);
@@ -80,6 +82,7 @@ float take_reading(void){
 
 int main(void){
 
+	std::cout << "Booting up...\n";
 	wiringPiSetup();
 	pinMode(TRIGPIN, OUTPUT);
 	pinMode(ECHOPIN, INPUT);

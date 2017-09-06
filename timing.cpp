@@ -46,18 +46,21 @@ void delay_nanos(int nano_delay){
 float take_reading(void){
 
 	std::cout << "Taking reading...\n";
+	std::cout << "Sending trigger pulse...\n";
 
 	auto trig_start = std::chrono::system_clock::now();
 
 	digitalWrite(TRIGPIN, HIGH);
 
-	delay_nanos(25000);
+	delay_nanos(20000);
 
 	digitalWrite(TRIGPIN, LOW);
 
 	auto trig_end = std::chrono::system_clock::now();
 
 	auto trig_width = std::chrono::duration_cast<std::chrono::microseconds>(trig_end - trig_start);
+
+	std::cout << "Waiting for echo pulse...\n";
 
 	// wait for echo to go high
 	while(digitalRead(ECHOPIN) == 0){}
@@ -114,7 +117,7 @@ int main(void){
 			tot_distance += take_reading();
 			avg_distance = tot_distance / count;
 
-			delay(1);
+			delay(100);
 
 			count++;
 

@@ -49,7 +49,7 @@ float take_reading(void){
 
 	digitalWrite(TRIGPIN, HIGH);
 
-	delay_nanos(10000);
+	delay_nanos(25000);
 
 	digitalWrite(TRIGPIN, LOW);
 
@@ -71,7 +71,7 @@ float take_reading(void){
 
 	auto echo_width = std::chrono::duration_cast<std::chrono::microseconds>(echo_end - echo_start);
 
-	float distance = (float)(echo_width.count()) / 1000000 * 170 * 39.37;
+	float distance = (float)(echo_width.count()) / 58 * 0.3937;
 
 	return distance;
 
@@ -119,7 +119,16 @@ int main(void){
 
 		water_height = sensor_height - avg_distance;
 
-		//int percent = (int)(water_height / (full_height / 20));
+		int percent = (int)(((water_height / full_height) * 100) / 5);
+
+		char fill_bar[] = "[####################]";
+
+		for(int i = 1; i <= 20; i++){
+			if(i <= percent)
+				fill_bar[i] = '#';
+			else
+				fill_bar[i] = ' ';
+		}
 
 		if(filling){
 			if(water_height >= full_height){
@@ -143,7 +152,7 @@ int main(void){
 
 		std::cout << "\n";
 
-		std::cout << "[####################] " << "\n";
+		std::cout << fill_bar << "\n";
 
 		std::cout << "\n";
 

@@ -45,8 +45,8 @@ void delay_nanos(int nano_delay){
 
 float take_reading(void){
 
-	std::cout << "Taking reading...\n";
-	std::cout << "Sending trigger pulse...\n";
+	//std::cout << "Taking reading...\n";
+	//std::cout << "Sending trigger pulse...\n";
 
 	auto trig_start = std::chrono::system_clock::now();
 
@@ -60,7 +60,7 @@ float take_reading(void){
 
 	auto trig_width = std::chrono::duration_cast<std::chrono::microseconds>(trig_end - trig_start);
 
-	std::cout << "Waiting for echo pulse...\n";
+	//std::cout << "Waiting for echo pulse...\n";
 
 	// wait for echo to go high
 	while(digitalRead(ECHOPIN) == 0){}

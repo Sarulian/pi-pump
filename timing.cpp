@@ -103,7 +103,7 @@ int main(void){
 	bool filling = false;
 	int count = 1;
 	float avg_distance = 0;
-	float tot_distance = 0;
+	float readings_array[10] = {};
 
 	auto last_pump_off_time = std::chrono::system_clock::now();
 

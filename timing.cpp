@@ -95,9 +95,9 @@ int main(void){
 	digitalWrite(TRIGPIN, LOW);
 
 	// all heights in inches
-	float full_height = 20;
-	float empty_height = 5;
-	float sensor_height = 30;
+	float full_height = 37;
+	float empty_height = 18;
+	float sensor_height = 50;
 	float water_height = full_height;
 
 	bool filling = false;
@@ -105,6 +105,8 @@ int main(void){
 	int count = 1;
 	float avg_distance = 0;
 	float tot_distance = 0;
+
+	auto last_pump_off_time = std::chrono::system_clock::now();
 
 	while(1){
 
@@ -125,7 +127,7 @@ int main(void){
 
 		water_height = sensor_height - avg_distance;
 
-		int percent = (int)(((water_height / full_height) * 100) / 5);
+		int percent = (int)((((water_height - empty_height) / (full_height - empty_height)) * 100) / 5);
 
 		char fill_bar[] = "[####################]";
 
@@ -150,6 +152,7 @@ int main(void){
 			digitalWrite(RELAYPIN, HIGH);
 		} else{
 			digitalWrite(RELAYPIN, LOW);
+			last_pump_off_time = std::chrono::system_clock::now();
 		}
 
 		std::cout << "\n";

@@ -110,6 +110,7 @@ int main(void){
 	// main infinite loop
 	while(1){
 
+		// reset variables
 		count = 0;
 		avg_distance = 0;
 		readings_array[10] = {};
@@ -150,6 +151,11 @@ int main(void){
 				filling = true;
 			}
 		}
+
+		// check if pump has been turned on for more than 70 minutes
+		std::chrono::duration<float> seconds_pump_on = last_pump_off_time - std::chrono::system_clock::now();
+		if(seconds_pump_on > 4200)
+			filling = false;
 
 		// turn pump on or off with relay pin
 		if(filling){

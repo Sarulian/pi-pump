@@ -114,7 +114,7 @@ int main(void){
 			tot_distance += take_reading();
 			avg_distance = tot_distance / count;
 
-			delay(100);
+			delay(1);
 
 			count++;
 

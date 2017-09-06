@@ -106,6 +106,7 @@ int main(void){
 	float readings_array[10] = {};
 
 	auto last_pump_off_time = std::chrono::system_clock::now();
+	auto last_pump_on_time = std::chrono::system_clock::now();
 
 	// main infinite loop
 	while(1){
@@ -157,9 +158,13 @@ int main(void){
 		if(seconds_pump_on.count() > 4200)
 			filling = false;
 
+		// format pump off time
+		std::chrono::duration<float> seconds_pump_off = last_pump_on_time - std::chrono::system_clock::now();
+
 		// turn pump on or off with relay pin
 		if(filling){
 			digitalWrite(RELAYPIN, HIGH);
+			last_pump_on_time = std::chrono::system_clock::now();
 		} else{
 			digitalWrite(RELAYPIN, LOW);
 			last_pump_off_time = std::chrono::system_clock::now();
@@ -173,8 +178,10 @@ int main(void){
 		std::cout << "\n";
 		if(filling){
 			std::cout << "Pump Status:  " << BOLDGREEN << "ON" << RESET << " /" << "\n";
+			std::cout << "Minutes pump has been on: " << (int)(seconds_pump_on.count()/60) << "\n";
 		} else{
 			std::cout << "Pump Status:     /  " << BOLDRED << "OFF" << RESET << "\n";
+			std::cout << "Minutes pump has been off: " << (int)(seconds_pump_off.count()/60) << "\n";
 		}
 
 	}

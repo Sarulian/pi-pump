@@ -2,13 +2,30 @@
 #include <chrono>
 #include <ctime>
 #include <wiringPi.h>
+#include <iomanip>
 
 
 #define ECHOPIN 29
 #define TRIGPIN 28
 #define RELAYPIN 7
-#define EMPTY 20
-#define FULL 15 
+
+#define RESET   "\033[0m"
+#define BLACK   "\033[30m"      /* Black */
+#define RED     "\033[31m"      /* Red */
+#define GREEN   "\033[32m"      /* Green */
+#define YELLOW  "\033[33m"      /* Yellow */
+#define BLUE    "\033[34m"      /* Blue */
+#define MAGENTA "\033[35m"      /* Magenta */
+#define CYAN    "\033[36m"      /* Cyan */
+#define WHITE   "\033[37m"      /* White */
+#define BOLDBLACK   "\033[1m\033[30m"      /* Bold Black */
+#define BOLDRED     "\033[1m\033[31m"      /* Bold Red */
+#define BOLDGREEN   "\033[1m\033[32m"      /* Bold Green */
+#define BOLDYELLOW  "\033[1m\033[33m"      /* Bold Yellow */
+#define BOLDBLUE    "\033[1m\033[34m"      /* Bold Blue */
+#define BOLDMAGENTA "\033[1m\033[35m"      /* Bold Magenta */
+#define BOLDCYAN    "\033[1m\033[36m"      /* Bold Cyan */
+#define BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
 
 
 void delay_nanos(int nano_delay){
@@ -71,6 +88,12 @@ int main(void){
 	digitalWrite(RELAYPIN, LOW);
 	digitalWrite(TRIGPIN, LOW);
 
+	// all heights in inches
+	float full_height = 20;
+	float empty_height = 5;
+	float sensor_height = 30;
+	float water_height = full_height;
+
 	bool filling = false;
 
 	int count = 1;
@@ -88,22 +111,22 @@ int main(void){
 			tot_distance += take_reading();
 			avg_distance = tot_distance / count;
 
-			// std::cout << "Total distance: " << tot_distance << " inches" << "\n";
-			// std::cout << "Count: " << count << "\n";
-			// std::cout << "Average distance: " << avg_distance << "inches" << "\n";
-
 			delay(100);
 
 			count++;
 
 		}
 
+		water_height = sensor_height - avg_distance;
+
+		//int percent = (int)(water_height / (full_height / 20));
+
 		if(filling){
-			if(avg_distance <= FULL){
+			if(water_height >= full_height){
 				filling = false;
 			}
 		} else{
-			if(avg_distance >= EMPTY){
+			if(water_height <= empty_height){
 				filling = true;
 			}
 		}
@@ -114,8 +137,21 @@ int main(void){
 			digitalWrite(RELAYPIN, LOW);
 		}
 
-		std::cout << "Average distance: " << avg_distance << "\n";
-		std::cout << "Filling: " << filling << "\n\n";
+		std::cout << "\n";
+
+		std::cout << "Water Height: " << std::fixed << std::setprecision(1) << water_height << " in\n";
+
+		std::cout << "\n";
+
+		std::cout << "[####################] " << "\n";
+
+		std::cout << "\n";
+
+		if(filling){
+			std::cout << "Pump Status:  " << BOLDGREEN << "ON" << RESET << " /" << "\n";
+		} else{
+			std::cout << "Pump Status:     /  " << BOLDRED << "OFF" << RESET << "\n";
+		}
 
 	}
 

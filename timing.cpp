@@ -173,15 +173,13 @@ int main(void){
 		// output info on termnal
 		std::cout << "\n";
 		std::cout << "Water Height: " << std::fixed << std::setprecision(1) << water_height << " in\n";
-		std::cout << "\n";
 		std::cout << fill_bar << "\n";
-		std::cout << "\n";
 		if(filling){
 			std::cout << "Pump Status:  " << BOLDGREEN << "ON" << RESET << " /" << "\n";
-			std::cout << "Minutes pump has been on: " << (int)(seconds_pump_on.count()/60) << "\n";
+			std::cout << "for " << (int)(seconds_pump_on.count()/60) << " minutes";
 		} else{
 			std::cout << "Pump Status:     /  " << BOLDRED << "OFF" << RESET << "\n";
-			std::cout << "Minutes pump has been off: " << (int)(seconds_pump_off.count()/60) << "\n";
+			std::cout << "for " << (int)(seconds_pump_off.count()/60) << " minutes";
 		}
 
 	}

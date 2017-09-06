@@ -135,7 +135,7 @@ int main(void){
 			if(i <= percent)
 				fill_bar[i] = '#';
 			else
-				fill_bar[i] = ' ';
+				fill_bar[i] = '.';
 		}
 
 		if(filling){

@@ -173,7 +173,7 @@ int main(void){
 		// output info on termnal
 		std::cout << "\n";
 		std::cout << "Water Height: " << std::fixed << std::setprecision(1) << water_height << " in\n";
-		std::cout << fill_bar << "\n";
+		std::cout << fill_bar << "\n\n";
 		if(filling){
 			std::cout << "Pump Status:  " << BOLDGREEN << "ON" << RESET << " /" << "\n";
 			std::cout << "for " << (int)(seconds_pump_on.count()/60) << " minutes\n";

@@ -176,10 +176,10 @@ int main(void){
 		std::cout << fill_bar << "\n";
 		if(filling){
 			std::cout << "Pump Status:  " << BOLDGREEN << "ON" << RESET << " /" << "\n";
-			std::cout << "for " << (int)(seconds_pump_on.count()/60) << " minutes";
+			std::cout << "for " << (int)(seconds_pump_on.count()/60) << " minutes\n";
 		} else{
 			std::cout << "Pump Status:     /  " << BOLDRED << "OFF" << RESET << "\n";
-			std::cout << "for " << (int)(seconds_pump_off.count()/60) << " minutes";
+			std::cout << "for " << (int)(seconds_pump_off.count()/60) << " minutes\n";
 		}
 
 	}

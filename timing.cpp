@@ -133,7 +133,7 @@ int main(void){
 		water_height = sensor_height - avg_distance;
 
 		// make percent fill bar
-		int percent = (int)((((water_height - empty_height) / (full_height - empty_height)) * 100) / 5);
+		int percent = (int)((((water_height) / (full_height)) * 100) / 5);
 		char fill_bar[] = "[####################]";
 		for(int i = 1; i <= 20; i++){
 			if(i <= percent)

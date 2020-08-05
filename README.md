@@ -6,6 +6,7 @@ Using an [MB7052 ultrasonic sensor](https://www.maxbotix.com/Ultrasonic_Sensors/
 ## Recommendations
 * Format the resolution of whatever screen you use to show only ~6 lines of the terminal at a time.
 * Boot pi without GUI.
+* Compile with `g++ timing.cpp -o timing -lwiringPi`
 * After compiling, add ~pi-pump/timing to .bashrc to run at boot.
 * This code uses the [WiringPi pin definitions](https://pinout.xyz/) (numbers shown in tooltip on pins).
 
